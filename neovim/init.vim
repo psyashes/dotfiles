@@ -7,11 +7,11 @@ set nowritebackup
 set shortmess+=c
 set autoread
 set number
-set showmatch
+"set showmatch
 set laststatus=2
 set ruler
 set autoindent
-" set smartindent
+"set smartindent
 set expandtab
 set tabstop=2
 set softtabstop=2
@@ -24,12 +24,12 @@ set nowrap
 set hid
 set clipboard+=unnamedplus
 set lazyredraw
-set showmatch
 set conceallevel=0
 set updatetime=250
 set termguicolors
 set background=dark
 set t_Co=256
+let loaded_matchparen = 1
 let mapleader = " "
 let g:auto_save = 1
 let $LANG='en_US.UTF-8'
@@ -39,7 +39,7 @@ let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --ma
 let ayucolor="mirage"
 
 " airline
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '| '
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -64,13 +64,9 @@ Plug 'tpope/vim-endwise'
 Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'edkolev/tmuxline.vim'
+Plug 'hashivim/vim-terraform'
 Plug 'tpope/vim-fugitive'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'tpope/vim-fugitive'
-Plug 'romgrk/barbar.nvim'
-Plug 'tpope/vim-rails'
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
@@ -81,42 +77,60 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ulwlu/elly.vim'
 Plug 'pechorin/any-jump.vim'
-Plug 'habamax/vim-habanight'
+Plug 'jaredgorski/spacecamp'
+Plug 'benbusby/vim-earthbound-themes'
+Plug 'Rigellute/shades-of-purple.vim'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'skanehira/preview-markdown.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 call plug#end()
 
 
 " themes
 syntax enable
 let base16colorspace=256
-" hi Normal ctermbg=NONE guibg=NONE
-" colorscheme default
-" colorscheme hybrid
-" colorscheme ayu
-" colorscheme gruvbox
-" colorscheme darcula
-" colorscheme jellybeans
-" colorscheme elly
-" colorscheme base16-tomorrow-night
-colorscheme base16-black-metal-bathory
-" colorscheme base16-default-dark
-" colorscheme base16-synth-midnight-dark
-" colorscheme habanight
+"hi Normal ctermbg=NONE guibg=NONE
+"highlight Normal guibg=black guifg=white
+"color default
+"colorscheme hybrid
+"colorscheme ayu
+"colorscheme gruvbox
+"colorscheme darcula
+"colorscheme jellybeans
+"colorscheme elly
+"colorscheme base16-tomorrow-night
+"colorscheme base16-black-metal-bathory
+"colorscheme base16-rebecca
+"colorscheme base16-phd
+"colorscheme industry
+"colorscheme base16-default-dark
+"colorscheme base16-synth-midnight-dark
+"colorscheme moonside
+"colorscheme earthbound-darker
+"colorscheme shades_of_purple
+"colorscheme purify
+colorscheme dracula
+highlight Normal guibg=black
+highlight LineNr guibg=black
+highlight LineNr guifg=yellow
 
 " map
 inoremap <silent> jj <ESC>
 nnoremap <silent> p "*p
+nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<cr>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>F :Rg<CR>
 nnoremap <silent> <leader>h :History<CR>
 nnoremap <leader>e :CocCommand explorer<CR>
 nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>m :PreviewMarkdown<CR>
 
 " coc map
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
 
 " tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -125,25 +139,24 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 
-" alternative yank
-function! ClipboardYank()
-  call system('xclip -i -selection clipboard', @@)
-endfunction
-function! ClipboardPaste()
-  let @@ = system('xclip -o -selection clipboard')
-endfunction
-
-vnoremap <silent> y y:call ClipboardYank()<cr>
-vnoremap <silent> d d:call ClipboardYank()<cr>
-nnoremap <silent> p :call ClipboardPaste()<cr>p
-
-" treesitter
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true,              -- false will disable the whole extension
-    disable = { "ruby" },  -- list of language that will be disabled
+--    disable = { "ruby" },  -- list of language that will be disabled
   },
 }
 EOF
+
+" alternative yank
+"function! ClipboardYank()
+"  call system('xclip -i -selection clipboard', @@)
+"endfunction
+"function! ClipboardPaste()
+"  let @@ = system('xclip -o -selection clipboard')
+"endfunction
+"
+"vnoremap <silent> y y:call ClipboardYank()<cr>
+"vnoremap <silent> d d:call ClipboardYank()<cr>
+"nnoremap <silent> p :call ClipboardPaste()<cr>p
