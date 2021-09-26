@@ -27,7 +27,8 @@ set lazyredraw
 set conceallevel=0
 set updatetime=250
 set termguicolors
-set background=dark
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set t_Co=256
 let loaded_matchparen = 1
 let mapleader = " "
@@ -83,11 +84,17 @@ Plug 'Rigellute/shades-of-purple.vim'
 Plug 'kyoz/purify', { 'rtp': 'vim' }
 Plug 'skanehira/preview-markdown.vim'
 Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'briones-gabriel/darcula-solid.nvim'
+Plug 'rktjmp/lush.nvim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'folke/tokyonight.nvim'
+Plug 'wadackel/vim-dogrun'
 call plug#end()
 
 
 " themes
 syntax enable
+set background=dark
 let base16colorspace=256
 "hi Normal ctermbg=NONE guibg=NONE
 "highlight Normal guibg=black guifg=white
@@ -110,9 +117,13 @@ let base16colorspace=256
 "colorscheme shades_of_purple
 "colorscheme purify
 colorscheme dracula
+"colorscheme nord
+"colorscheme tokyonight
+"colorscheme dogrun
 highlight Normal guibg=black
 highlight LineNr guibg=black
-highlight LineNr guifg=yellow
+"highlight LineNr guifg=#39bae6
+"highlight LineNr guifg=#bd93f9
 
 " map
 inoremap <silent> jj <ESC>
@@ -127,10 +138,10 @@ nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>m :PreviewMarkdown<CR>
 
 " coc map
-"nmap <silent> gd <Plug>(coc-definition)
-"nmap <silent> gy <Plug>(coc-type-definition)
-"nmap <silent> gi <Plug>(coc-implementation)
-"nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " tmux-navigator
 let g:tmux_navigator_no_mappings = 1
