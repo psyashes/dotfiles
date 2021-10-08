@@ -1,0 +1,37 @@
+{
+    "files.autoSave": "afterDelay",
+    "editor.minimap.enabled": false,
+    "window.openFoldersInNewWindow": "on",
+    "workbench.editor.enablePreview": false,
+    "explorer.compactFolders": false,
+    "emmet.optimizeStylesheetParsing": false,
+    "vim.easymotion": true,
+    "vim.easymotionKeys": "sdfghjkl",
+    "vim.statusBarColorControl": false,
+    "editor.quickSuggestions": true,
+    "vim.useSystemClipboard": true,
+    "vim.leader": "<space>",
+    "vim.insertModeKeyBindings": [
+        {"before": ["j","j"], "after": ["<Esc>"]},
+    ],
+    "vim.normalModeKeyBindings": [
+        {"before": [ "s" ], "after": [ "<leader>", "<leader>", "2", "s", "<char>", "<char>" ]}
+        // {"before": ["p"], "after": ["\"", "0", "p"]},
+        // {"before": ["d"], "after": ["\"", "_", "d"]},
+        // {"before": ["x"], "after": ["\"", "_", "x"]},
+        // {"before": ["Cmd+e"], "after": ["Ctrl+e"]},
+    ],
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Dracula",
+    "editor.tabSize": 2,
+    "editor.renderWhitespace": "none",
+    "workbench.editor.showTabs": true,
+    "editor.lineHeight": 15,
+    "[json]": {
+    
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.suggest.insertMode": "replace"
+    },
+}

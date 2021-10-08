@@ -30,6 +30,7 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set t_Co=256
+let $VIMRUNTIME='/usr/local/share/vim/vim82'
 let loaded_matchparen = 1
 let mapleader = " "
 let g:auto_save = 1
@@ -38,6 +39,8 @@ let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
 let ayucolor="mirage"
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
 
 " airline
 let g:airline#extensions#tabline#enabled = 0
@@ -88,7 +91,7 @@ Plug 'briones-gabriel/darcula-solid.nvim'
 Plug 'rktjmp/lush.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'folke/tokyonight.nvim'
-Plug 'wadackel/vim-dogrun'
+Plug 'easymotion/vim-easymotion'
 call plug#end()
 
 
@@ -119,11 +122,11 @@ let base16colorspace=256
 colorscheme dracula
 "colorscheme nord
 "colorscheme tokyonight
-"colorscheme dogrun
 highlight Normal guibg=black
 highlight LineNr guibg=black
 "highlight LineNr guifg=#39bae6
 "highlight LineNr guifg=#bd93f9
+highlight LineNr guifg=yellow
 
 " map
 inoremap <silent> jj <ESC>
@@ -136,6 +139,7 @@ nnoremap <leader>e :CocCommand explorer<CR>
 nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bn :bnext<CR>
 nnoremap <leader>m :PreviewMarkdown<CR>
+nmap s <Plug>(easymotion-s2)
 
 " coc map
 nmap <silent> gd <Plug>(coc-definition)
