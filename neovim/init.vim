@@ -45,15 +45,13 @@ let g:EasyMotion_smartcase = 1
 " Conoline
 let g:conoline_auto_enable = 1
 
-" Rust
-" let g:rustfmt_autosave = 1
-
 " coc
 let g:coc_global_extensions = [
       \ 'coc-tsserver',
       \ 'coc-html',
       \ 'coc-css',
       \ 'coc-python',
+      \ 'coc-pyright',
       \ 'coc-phpls',
       \ 'coc-yaml',
       \ 'coc-json',
@@ -62,7 +60,6 @@ let g:coc_global_extensions = [
       \ 'coc-tag',
       \ 'coc-explorer',
       \ 'coc-rust-analyzer',
-      \ 'coc-rls',
       \ 'coc-go',
       \ 'coc-fzf-preview',
       \ ]
@@ -100,7 +97,6 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'easymotion/vim-easymotion'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'miyakogi/conoline.vim'
-Plug 'rust-lang/rust.vim'
 Plug 'windwp/nvim-autopairs'
 Plug 'cohama/lexima.vim'
 
@@ -146,9 +142,9 @@ set background=dark
 "colorscheme dracula
 "colorscheme nord
 "colorscheme tokyonight
-colorscheme calvera
+"colorscheme calvera
 "colorscheme moonlight
-"colorscheme jellybeans-nvim
+colorscheme jellybeans-nvim
 "colorscheme material
 hi Normal guibg=black
 hi LineNr guibg=black
@@ -200,6 +196,14 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 EOF
+
+" coc float scroll
+nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " alternative yank
 "function! ClipboardYank()
