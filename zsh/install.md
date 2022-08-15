@@ -17,7 +17,7 @@ $ chsh -s /usr/bin/zsh
 ```bash
 $ setopt EXTENDED_GLOB  
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do  
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"  
+  ln -f -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"  
 done
 ```
 symbolic linkでエラーがでた場合、`ln`に`-f`をつけて強制的にoverwriteする
@@ -88,10 +88,10 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'prompt' \
   'syntax-highlighting' \ #追加
-  'autosuggestions' \ #追加
+  'autosuggestions' #追加
 ```
 
 shellを再起動
 ```bash
-$ exec $SHELL -l
+exec $SHELL -l
 ```
