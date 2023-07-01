@@ -1,5 +1,6 @@
 " setting
 set encoding=UTF-8
+set fileencoding=UTF-8
 set hidden
 set nobackup
 set noswapfile
@@ -51,6 +52,7 @@ if has("autocmd")
   autocmd FileType rust  setlocal sw=4 sts=4 ts=4 et
   autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType typescript  setlocal sw=2 sts=2 ts=2 et
+  autocmd FileType org setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endif
 
 " Conoline
@@ -105,6 +107,9 @@ autocmd VimEnter * TableModeEnable
 let g:table_mode_corner_corner='+'
 let g:table_mode_header_fillchar='='
 
+" blamer
+let g:blamer_enabled = 1
+
 " vim-plug
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
@@ -158,6 +163,9 @@ Plug 'godlygeek/tabular'
 Plug 'ziontee113/neo-minimap'
 Plug 'gennaro-tedesco/nvim-peekup'
 Plug 'akinsho/org-bullets.nvim'
+Plug 'dkarter/bullets.vim'
+Plug 'APZelos/blamer.nvim'
+" Plug 'lukas-reineke/headlines.nvim'
 " Plug 'preservim/vim-markdown'
 " Plug 'smjonas/live-command.nvim'
 
@@ -259,8 +267,9 @@ nnoremap td ciwDONE<ESC>
 autocmd BufEnter *.org normal zR
 autocmd ColorScheme * call s:setup_org_colors()
 function! s:setup_org_colors() abort
-  hi link OrgTSHeadlineLevel3 Statement
-  hi link OrgTSHeadlineLevel4 Identifier
+  hi link OrgTSHeadlineLevel3 Statement " default Identifier
+  " hi link OrgTSHeadlineLevel4 Identifier
+  hi link OrgTSHeadlineLevel4 Title " default Statement
 endfunction
 
 " copilot
@@ -366,13 +375,14 @@ require("catppuccin").setup({
         end,
     },
 })
-vim.cmd[[colorscheme catppuccin]]
+-- vim.cmd[[colorscheme catppuccin]]
 
 -- orgmode
 require('orgmode').setup_ts_grammar()
 require('orgmode').setup({
   org_todo_keyword_faces = {
-    TODO = ':background #000000 :foreground #89b4fa',
+    -- TODO = ':background #000000 :foreground #89b4fa',
+    TODO = ':background #000000 :foreground yellow',
   }
 })
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
@@ -490,6 +500,7 @@ require('copilot').setup({
   filetypes = {
     yaml = false,
     markdown = false,
+    org = false,
     help = false,
     gitcommit = false,
     gitrebase = false,
@@ -550,15 +561,17 @@ syntax enable
 "colorscheme kanagawa
 "colorscheme omni
 "colorscheme aylin
-"colorscheme catppuccin
+colorscheme catppuccin
 "colorscheme andromeda
 "colorscheme spaceduck
 "colorscheme torte
 "colorscheme darkblue
 "colorscheme nightfox
+
 set background=dark
 hi Normal guibg=black
 hi LineNr guibg=black
+
 "hi LineNr guifg=#39bae6
 "hi LineNr guifg=#bd93f9
 "hi LineNr guifg=#ffb454
@@ -571,12 +584,3 @@ let g:seiya_auto_enable=1
 " autocmd VimEnter * :Goyo
 " autocmd VimEnter * :Goyo
 
-" markdown
-function! HighlightChecklist()
-  highlight Checklist ctermfg=yellow
-  syn match Checklist /^\s*- \[.\].*$/
-endfunction
-augroup markdown_overrides
-  autocmd!
-  autocmd FileType markdown call HighlightChecklist()
-augroup END
