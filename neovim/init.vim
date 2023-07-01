@@ -77,6 +77,7 @@ let g:coc_global_extensions = [
       \ 'coc-clangd',
       \ 'coc-lua',
       \ 'coc-fzf-preview',
+      \ 'coc-rust-analyzer',
       \ ]
 
 " airline
@@ -302,7 +303,8 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     additional_vim_regex_highlighting = {'org'},
   },
-  ensure_installed = {'org'},
+  -- ensure_installed = 'maintained',
+  auto_install = true,
   autotag = {
     enable = true,
   },
