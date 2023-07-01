@@ -110,98 +110,100 @@ let g:table_mode_header_fillchar='='
 " blamer
 let g:blamer_enabled = 1
 
-" vim-plug
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
-Plug 'junegunn/fzf.vim'
-Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
-Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/rpc' }
-Plug 'airblade/vim-gitgutter'
-Plug 'christoomey/vim-tmux-navigator'
-Plug '907th/vim-auto-save'
-Plug 'tpope/vim-endwise'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'vim-airline/vim-airline'
-Plug 'hashivim/vim-terraform'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'miyakogi/conoline.vim'
-Plug 'windwp/nvim-autopairs'
-Plug 'cohama/lexima.vim'
-" Plug 'peitalin/vim-jsx-typescript'
-" Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
-" Plug 't9md/vim-quickhl'
-Plug 'phaazon/hop.nvim'
-" Plug 'kevinhwang91/nvim-bqf'
-Plug 'nvim-lua/plenary.nvim'
-" Plug 'windwp/nvim-spectre'
-Plug 'dhruvasagar/vim-table-mode'
-Plug 'vim-scripts/YankRing.vim'
-Plug 'miyakogi/seiya.vim'
-Plug 'tpope/vim-surround' " b:(, B:{, r:[, a:<
-Plug 'tomtom/tcomment_vim'
-Plug 'itchyny/vim-cursorword'
-Plug 'folke/zen-mode.nvim'
-Plug 'junegunn/goyo.vim'
-Plug 'github/copilot.vim'
-Plug 'liuchengxu/vim-which-key'
-Plug 'nvim-orgmode/orgmode'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
-Plug 'akinsho/git-conflict.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'zbirenbaum/copilot.lua'
-Plug 'dhruvasagar/vim-zoom'
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'tom-anders/telescope-vim-bookmarks.nvim'
-Plug 'fannheyward/telescope-coc.nvim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'nvim-telescope/telescope-live-grep-args.nvim'
-Plug 'MunifTanjim/nui.nvim'
-Plug 'nvim-tree/nvim-web-devicons'
-Plug 'nvim-neo-tree/neo-tree.nvim'
-Plug 'godlygeek/tabular'
-Plug 'ziontee113/neo-minimap'
-Plug 'gennaro-tedesco/nvim-peekup'
-Plug 'akinsho/org-bullets.nvim'
-Plug 'dkarter/bullets.vim'
-Plug 'APZelos/blamer.nvim'
-" Plug 'lukas-reineke/headlines.nvim'
-" Plug 'preservim/vim-markdown'
-" Plug 'smjonas/live-command.nvim'
+" vim-jetpack
+packadd vim-jetpack
+call jetpack#begin()
+Jetpack 'tani/vim-jetpack', {'opt': 1}
+Jetpack 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Jetpack 'junegunn/fzf.vim'
+Jetpack 'antoinemadec/coc-fzf', {'branch': 'release'}
+Jetpack 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/rpc' }
+Jetpack 'airblade/vim-gitgutter'
+Jetpack 'christoomey/vim-tmux-navigator'
+Jetpack '907th/vim-auto-save'
+Jetpack 'tpope/vim-endwise'
+Jetpack 'neoclide/coc.nvim', {'branch': 'release'}
+Jetpack 'vim-airline/vim-airline'
+Jetpack 'hashivim/vim-terraform'
+Jetpack 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Jetpack 'norcalli/nvim-colorizer.lua'
+Jetpack 'miyakogi/conoline.vim'
+Jetpack 'windwp/nvim-autopairs'
+Jetpack 'cohama/lexima.vim'
+Jetpack 'phaazon/hop.nvim'
+Jetpack 'nvim-lua/plenary.nvim'
+Jetpack 'dhruvasagar/vim-table-mode'
+Jetpack 'vim-scripts/YankRing.vim'
+Jetpack 'miyakogi/seiya.vim'
+Jetpack 'tpope/vim-surround' " b:(, B:{, r:[, a:<
+Jetpack 'tomtom/tcomment_vim'
+Jetpack 'itchyny/vim-cursorword'
+Jetpack 'folke/zen-mode.nvim'
+Jetpack 'junegunn/goyo.vim'
+Jetpack 'github/copilot.vim'
+Jetpack 'liuchengxu/vim-which-key'
+Jetpack 'nvim-orgmode/orgmode'
+Jetpack 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Jetpack 'akinsho/git-conflict.nvim'
+Jetpack 'lukas-reineke/indent-blankline.nvim'
+Jetpack 'zbirenbaum/copilot.lua'
+Jetpack 'dhruvasagar/vim-zoom'
+Jetpack 'MattesGroeger/vim-bookmarks'
+Jetpack 'tom-anders/telescope-vim-bookmarks.nvim'
+Jetpack 'fannheyward/telescope-coc.nvim'
+Jetpack 'terryma/vim-multiple-cursors'
+Jetpack 'nvim-telescope/telescope-live-grep-args.nvim'
+Jetpack 'MunifTanjim/nui.nvim'
+Jetpack 'nvim-tree/nvim-web-devicons'
+Jetpack 'nvim-neo-tree/neo-tree.nvim'
+Jetpack 'godlygeek/tabular'
+Jetpack 'ziontee113/neo-minimap'
+Jetpack 'gennaro-tedesco/nvim-peekup'
+Jetpack 'akinsho/org-bullets.nvim'
+Jetpack 'dkarter/bullets.vim'
+Jetpack 'APZelos/blamer.nvim'
+" Jetpack 'lukas-reineke/headlines.nvim'
+" Jetpack 'preservim/vim-markdown'
+" Jetpack 'smjonas/live-command.nvim'
+" Jetpack 'peitalin/vim-jsx-typescript'
+" Jetpack 'styled-components/vim-styled-components', { 'branch': 'main' }
+" Jetpack 't9md/vim-quickhl'
+" Jetpack 'kevinhwang91/nvim-bqf'
+" Jetpack 'windwp/nvim-spectre'
 
 " Local
-Plug 'file:///Users/cohiba/dev/eva13'
+Jetpack'file:///Users/cohiba/dev/eva13'
  
 " colorschemes
-Plug 'doums/darcula'
-Plug 'micke/vim-hybrid'
-Plug 'ayu-theme/ayu-vim'
-Plug 'morhetz/gruvbox'
-Plug 'benbusby/vim-earthbound-themes'
-Plug 'Rigellute/shades-of-purple.vim'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'briones-gabriel/darcula-solid.nvim'
-Plug 'rktjmp/lush.nvim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'folke/tokyonight.nvim'
-Plug 'yashguptaz/calvera-dark.nvim'
-Plug 'shaunsingh/moonlight.nvim'
-Plug 'metalelf0/jellybeans-nvim'
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'savq/melange'
-Plug 'NTBBloodbath/doom-one.nvim'
-Plug 'cocopon/iceberg.vim'
-Plug 'rebelot/kanagawa.nvim'
-Plug 'yonlu/omni.vim'
-Plug 'AhmedAbdulrahman/vim-aylin'
-Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
-Plug 'EdenEast/nightfox.nvim'
-Plug 'marko-cerovac/material.nvim'
-Plug 'nyoom-engineering/oxocarbon.nvim'
-Plug 'nobbmaestro/nvim-andromeda'
-call plug#end()
+Jetpack 'doums/darcula'
+Jetpack 'micke/vim-hybrid'
+Jetpack 'ayu-theme/ayu-vim'
+Jetpack 'morhetz/gruvbox'
+Jetpack 'benbusby/vim-earthbound-themes'
+Jetpack 'Rigellute/shades-of-purple.vim'
+Jetpack 'kyoz/purify', { 'rtp': 'vim' }
+Jetpack 'dracula/vim', { 'as': 'dracula' }
+Jetpack 'briones-gabriel/darcula-solid.nvim'
+Jetpack 'rktjmp/lush.nvim'
+Jetpack 'arcticicestudio/nord-vim'
+Jetpack 'folke/tokyonight.nvim'
+Jetpack 'yashguptaz/calvera-dark.nvim'
+Jetpack 'shaunsingh/moonlight.nvim'
+Jetpack 'metalelf0/jellybeans-nvim'
+Jetpack 'bluz71/vim-moonfly-colors'
+Jetpack 'savq/melange'
+Jetpack 'NTBBloodbath/doom-one.nvim'
+Jetpack 'cocopon/iceberg.vim'
+Jetpack 'rebelot/kanagawa.nvim'
+Jetpack 'yonlu/omni.vim'
+Jetpack 'AhmedAbdulrahman/vim-aylin'
+Jetpack 'catppuccin/nvim', {'as': 'catppuccin'}
+Jetpack 'pineapplegiant/spaceduck', { 'branch': 'main' }
+Jetpack 'EdenEast/nightfox.nvim'
+Jetpack 'marko-cerovac/material.nvim'
+Jetpack 'nyoom-engineering/oxocarbon.nvim'
+Jetpack 'nobbmaestro/nvim-andromeda'
+call jetpack#end()
 
 " map
 inoremap <silent> jj <ESC>
@@ -224,7 +226,8 @@ nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bn :bnext<CR>
 nmap f :HopWord<CR>
 " nmap s :HopChar2<CR>
-nnoremap <leader>pi :PlugInstall<CR>
+" nnoremap <leader>pi :PlugInstall<CR>
+nnoremap <leader>js :JetpackSync<CR>
 vnoremap , :TComment<CR>
 nnoremap <leader>z :ZenMode<CR>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
