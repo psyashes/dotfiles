@@ -79,6 +79,13 @@ let g:coc_global_extensions = [
       \ 'coc-fzf-preview',
       \ 'coc-rust-analyzer',
       \ ]
+let g:coc_user_config = {
+    \   'explorer': {
+    \     'file': {
+    \       'showHiddenFiles': 1
+    \     }
+    \   }
+    \ }
 
 " airline
 let g:airline#extensions#tabline#enabled = 0
