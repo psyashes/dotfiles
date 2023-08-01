@@ -247,11 +247,12 @@ nnoremap <leader>qf <cmd>lua require("telescope.builtin").quickfix()<CR>
 nmap <leader>P <Plug>PeekupOpen
 
 " coc map
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd :Telescope coc definitions<CR>
 nmap <silent> gy :Telescope coc type_definitions<CR>
 nmap <silent> gi :Telescope coc implementations<CR>
 nmap <silent> gr :Telescope coc references<CR>
-nmap <silent> gq :Telescope coc diagnostics<CR>
+nmap <silent> gq :Telescope coc workspace_diagnostics<CR>
+nmap <silent> gs :Telescope coc workspace_symbols<CR>
 nmap <silent> gh :call CocAction('doHover')<CR>
 nmap <silent> gf :call CocAction('format')<CR>
  " Need to install pynvim
