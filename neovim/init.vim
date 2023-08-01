@@ -34,7 +34,7 @@ let $FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 let $FZF_DEFAULT_OPTS="--preview 'bat  --color=always --style=header,grid {}' --ansi --preview-window 'right:60%' --layout reverse --margin=1,4"
 let ayucolor="mirage"
-set conceallevel=2
+set conceallevel=0
 set concealcursor=nc
 
 " indent
@@ -309,6 +309,7 @@ require("zen-mode").setup {
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
+    -- disable = {'markdown'}, #f2cdcd
     additional_vim_regex_highlighting = {'org'},
   },
   -- ensure_installed = 'maintained',
