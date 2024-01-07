@@ -25,7 +25,7 @@ set termguicolors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 set t_Co=256
-let $VIMRUNTIME='/usr/share/vim/vim90'
+" let $VIMRUNTIME='/usr/share/vim/vim90'
 let loaded_matchparen = 1
 let mapleader = " "
 let g:auto_save = 1
@@ -53,6 +53,7 @@ if has("autocmd")
   autocmd FileType javascript  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType typescript  setlocal sw=2 sts=2 ts=2 et
   autocmd FileType org setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
+  autocmd FileType markdown setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 endif
 
 " Conoline
@@ -118,9 +119,8 @@ let g:table_mode_header_fillchar='='
 " blamer
 let g:blamer_enabled = 1
 
-" vim-jetpack
+" vim-plug
 call plug#begin()
-Plug 'tani/vim-jetpack', {'opt': 1}
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
@@ -141,19 +141,17 @@ Plug 'phaazon/hop.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'vim-scripts/YankRing.vim'
-Plug 'miyakogi/seiya.vim'
 Plug 'tpope/vim-surround' " b:(, B:{, r:[, a:<
-Plug 'tomtom/tcomment_vim'
+" Plug 'tomtom/tcomment_vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'folke/zen-mode.nvim'
-Plug 'junegunn/goyo.vim'
 Plug 'github/copilot.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'nvim-orgmode/orgmode'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'akinsho/git-conflict.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'zbirenbaum/copilot.lua'
+" Plug 'zbirenbaum/copilot.lua'
 Plug 'dhruvasagar/vim-zoom'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
@@ -171,6 +169,15 @@ Plug 'dkarter/bullets.vim'
 Plug 'APZelos/blamer.nvim'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'justinmk/vim-sneak'
+Plug 'tpope/vim-commentary'
+Plug 'Rasukarusan/nvim-block-paste'
+Plug 'nyngwang/NeoZoom.lua'
+Plug 'ellisonleao/glow.nvim'
+Plug 'xiyaowong/transparent.nvim'
+Plug 'shellRaining/hlchunk.nvim'
+Plug 'HiPhish/rainbow-delimiters.nvim'
+Plug 'atusy/tsnode-marker.nvim'
+Plug 'nvim-treesitter/playground'
 " Plug 'lukas-reineke/headlines.nvim'
 " Plug 'preservim/vim-markdown'
 " Plug 'smjonas/live-command.nvim'
@@ -218,12 +225,14 @@ call plug#end()
 inoremap <silent> jj <ESC>
 nnoremap <silent> p "*p
 xnoremap y y`>
-" nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim <Bar> :SeiyaEnable<cr> <Bar> :Goyo<cr> <Bar> :Goyo<cr>
 nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
 " nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>ff <cmd>Telescope find_files hidden=true<CR>
 " nnoremap <leader>F <cmd>lua require('spectre').open()<CR>
 nnoremap <leader>fl <cmd>lua require("telescope").extensions.live_grep_args.live_grep_args()<CR>
+" NOTE: Search inside specific path
+" "text" -g path_name/**
+nnoremap <silent> <leader>fg <cmd>Telescope git_status<CR>
 nnoremap <leader>tr <cmd>Telescope resume<CR>
 nnoremap <leader>ma <cmd>Telescope vim_bookmarks all<CR>
 nnoremap <leader>fb <cmd>Telescope buffers<CR>
@@ -233,20 +242,25 @@ nnoremap <leader>e :CocCommand explorer<CR>
 nnoremap <leader>ng :Neotree float git_status<CR>
 nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bn :bnext<CR>
-nmap s :HopWord<CR>
-nmap f <Plug>Sneak_s
-nmap F <Plug>Sneak_S
+nmap f :HopWord<CR>
+" nmap f <Plug>Sneak_s
+" nmap F <Plug>Sneak_S
 " nmap s :HopChar2<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 vnoremap , :TComment<CR>
-nnoremap <leader>z :ZenMode<CR>
+" nnoremap <leader>z :ZenMode<CR>
+nnoremap <silent> <leader>z <cmd>NeoZoomToggle<CR>
+nnoremap <silent> <leader>tz :tab split<CR>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 "nnoremap <leader>l :CocDiagnostics<CR>
 "nnoremap <leader>l :CocList diagnostics<CR>
 nnoremap <leader>ca  <Plug>(coc-codeaction-selected)
+nnoremap <leader>cr  <Plug>(coc-rename)
 nnoremap <leader>qf <cmd>lua require("telescope.builtin").quickfix()<CR>
 " nnoremap <leader>M <cmd>lua require("telescope.builtin").marks()<CR>
 nmap <leader>P <Plug>PeekupOpen
+nnoremap <leader>gl :Glow<CR>
+vmap , gc
 
 " coc map
 nmap <silent> gd :Telescope coc definitions<CR>
@@ -287,7 +301,7 @@ function! s:setup_org_colors() abort
 endfunction
 
 " copilot
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 inoremap <silent> <c-]> <Plug>(copilot-next)
 inoremap <silent> <c-[> <Plug>(copilot-previous)
@@ -311,7 +325,6 @@ require("zen-mode").setup {
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,
-    -- disable = {'markdown'}, #f2cdcd
     additional_vim_regex_highlighting = {'org'},
   },
   -- ensure_installed = 'maintained',
@@ -373,6 +386,10 @@ require("catppuccin").setup({
         which_key = true,
         gitgutter = true,
         neotree = true,
+        treesitter = true,
+        which_key = true,
+        beacon = true,
+        hop = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
     highlight_overrides = {
@@ -385,13 +402,12 @@ require("catppuccin").setup({
         end,
         mocha = function(mocha)
             return {
-                Comment = { fg = mocha.flamingo },
+                Comment = { fg = mocha.flamingo, style = { "italic" } },
                 CocInlayHint = { fg = "#bd93f9" },
             }
         end,
     },
 })
--- vim.cmd[[colorscheme catppuccin]]
 
 -- orgmode
 require('orgmode').setup_ts_grammar()
@@ -413,7 +429,6 @@ parser_config.org = {
 require('org-bullets').setup()
 
 require('nightfox').setup({
-  -- Use black background color in deactivate window
   options = {
     styles = {
       comments = "italic",
@@ -471,7 +486,7 @@ require('telescope').setup{
           prefer_locations = true, -- always use Telescope locations to preview definitions/declarations/implementations etc
       }
     },
-  }
+  },
 }
 vim.api.nvim_set_hl(0, "TelescopeNormal", {bg="#000000"})
 require('telescope').load_extension('coc')
@@ -488,46 +503,72 @@ require("tokyonight").setup({
   },
 })
 
-require('copilot').setup({
-  panel = {
-    enabled = true,
-    auto_refresh = true,
-    keymap = {
-      jump_prev = "[[",
-      jump_next = "]]",
-      accept = "<CR>",
-      refresh = "gr",
-      open = "<M-CR>"
+require('neo-zoom').setup {
+  popup = { enabled = true },
+  exclude_buftypes = { 'terminal' },
+  winopts = {
+    offset = {
+      width = 150,
+      height = 0.85,
+    },
+    border = 'thicc', -- this is a preset, try it :)
+  },
+  presets = {
+    {
+      filetypes = { 'dapui_.*', 'dap-repl' },
+      winopts = {
+        offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
+      },
+    },
+    {
+      filetypes = { 'markdown' },
+      callbacks = {
+        function () vim.wo.wrap = true end,
+      },
     },
   },
-  suggestion = {
-    enabled = true,
-    auto_trigger = true,
-    debounce = 75,
-    keymap = {
-      accept = "<M-l>",
-      accept_word = false,
-      accept_line = false,
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<C-]>",
+}
+
+require('glow').setup()
+
+-- transparent
+vim.g.transparent_enabled = true
+
+-- hlchunk
+require("hlchunk").setup({
+    indent = {
+        enable = false,
     },
-  },
-  filetypes = {
-    yaml = false,
-    markdown = false,
-    org = false,
-    help = false,
-    gitcommit = false,
-    gitrebase = false,
-    hgcommit = false,
-    svn = false,
-    cvs = false,
-    ["."] = false,
-  },
-  copilot_node_command = 'node', -- Node.js version must be > 16.x
-  server_opts_overrides = {},
+    blank = {
+        enable = false,
+    }
 })
+
+-- rainbow-delimiters
+local rainbow_delimiters = require 'rainbow-delimiters'
+vim.g.rainbow_delimiters = {
+    strategy = {
+        [''] = rainbow_delimiters.strategy['global'],
+        vim = rainbow_delimiters.strategy['local'],
+    },
+    query = {
+        [''] = 'rainbow-delimiters',
+        lua = 'rainbow-blocks',
+    },
+    priority = {
+        [''] = 110,
+        lua = 210,
+    },
+    highlight = {
+        'RainbowDelimiterYellow',
+        'RainbowDelimiterBlue',
+        'RainbowDelimiterOrange',
+        'RainbowDelimiterGreen',
+        'RainbowDelimiterViolet',
+        'RainbowDelimiterCyan',
+        'RainbowDelimiterRed',
+    },
+}
 EOF
 
 " coc float scroll
@@ -593,10 +634,16 @@ hi LineNr guibg=black
 "hi LineNr guifg=#ffb454
 "hi LineNr guifg=yellow
 
-" NOTE: Execute seiya in the end of vimrc for in order not to interfere with colorscheme.
-let g:seiya_target_groups = has('nvim') ? ['guibg'] : ['ctermbg']
-let g:seiya_auto_enable=1
-" autocmd VimEnter * :SeiyaEnable
-" autocmd VimEnter * :Goyo
-" autocmd VimEnter * :Goyo
+"hi BlockBg guibg=#282A36
+"hi! link @text.quote.markdown BlockBg
+"hi! link @text.literal.block.markdown BlockBg
+"hi! link @code_fence_content BlockBg
 
+
+" ハイライトグループを定義
+hi MarkdownList1 guifg=#FF0000
+hi MarkdownList2 guifg=#00FF00
+
+" FileType が markdown のときにハイライトを適用
+autocmd FileType markdown syntax match MarkdownList1 /^\s*\-\s\+\S\+/
+autocmd FileType markdown syntax match MarkdownList2 /^\s*\-\s\+\-\s\+\S\+/
