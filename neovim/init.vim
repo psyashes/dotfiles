@@ -119,6 +119,11 @@ let g:table_mode_header_fillchar='='
 " blamer
 let g:blamer_enabled = 1
 
+" goyo
+let g:goyo_width = 140
+let g:goyo_height = 90
+let g:goyo_liner = 1
+
 " vim-plug
 call plug#begin()
 Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
@@ -152,7 +157,6 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.4' }
 Plug 'akinsho/git-conflict.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 " Plug 'zbirenbaum/copilot.lua'
-Plug 'dhruvasagar/vim-zoom'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tom-anders/telescope-vim-bookmarks.nvim'
 Plug 'fannheyward/telescope-coc.nvim'
@@ -178,6 +182,15 @@ Plug 'shellRaining/hlchunk.nvim'
 Plug 'HiPhish/rainbow-delimiters.nvim'
 Plug 'atusy/tsnode-marker.nvim'
 Plug 'nvim-treesitter/playground'
+Plug 'sindrets/diffview.nvim'
+Plug 'tpope/vim-fugitive'
+Plug 'dhruvasagar/vim-zoom'
+Plug 'junegunn/goyo.vim'
+Plug 'Pocco81/true-zen.nvim'
+Plug 'mrcjkb/rustaceanvim'
+Plug 'Exafunction/codeium.vim'
+Plug 'eandrju/cellular-automaton.nvim'
+Plug 'MeanderingProgrammer/markdown.nvim'
 " Plug 'lukas-reineke/headlines.nvim'
 " Plug 'preservim/vim-markdown'
 " Plug 'smjonas/live-command.nvim'
@@ -225,6 +238,7 @@ call plug#end()
 inoremap <silent> jj <ESC>
 nnoremap <silent> p "*p
 xnoremap y y`>
+xnoremap Y y$
 nnoremap <silent> <leader>r :source ~/.config/nvim/init.vim<CR>
 " nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>ff <cmd>Telescope find_files hidden=true<CR>
@@ -245,22 +259,43 @@ nnoremap <leader>bn :bnext<CR>
 nmap f :HopWord<CR>
 " nmap f <Plug>Sneak_s
 " nmap F <Plug>Sneak_S
-" nmap s :HopChar2<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 vnoremap , :TComment<CR>
 " nnoremap <leader>z :ZenMode<CR>
-nnoremap <silent> <leader>z <cmd>NeoZoomToggle<CR>
+" nnoremap <silent> <leader>z <cmd>NeoZoomToggle<CR>
+nnoremap <silent> <leader>z <cmd>Goyo<CR>
+" nnoremap <silent> <leader>z <cmd>TZAtaraxis<CR>
+" nnoremap <silent> <leader>z <cmd>Goyo<CR>
 nnoremap <silent> <leader>tz :tab split<CR>
 nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 "nnoremap <leader>l :CocDiagnostics<CR>
 "nnoremap <leader>l :CocList diagnostics<CR>
 nnoremap <leader>ca  <Plug>(coc-codeaction-selected)
 nnoremap <leader>cr  <Plug>(coc-rename)
-nnoremap <leader>qf <cmd>lua require("telescope.builtin").quickfix()<CR>
 " nnoremap <leader>M <cmd>lua require("telescope.builtin").marks()<CR>
 nmap <leader>P <Plug>PeekupOpen
 nnoremap <leader>gl :Glow<CR>
 vmap , gc
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+" command line
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+cnoremap <C-d> <Del>
+
+" Wrap Option
+nnoremap <leader>wo ciwOption<<ESC>pa><ESC>
+" Wrap Some
+nnoremap <leader>ws ciwSome(<ESC>pa)<ESC>
+
+" Move visual block
+vnoremap <C-p> "zx<Up>"zP`[V`]
+vnoremap <C-n> "zx"zp`[V`]
 
 " coc map
 nmap <silent> gd :Telescope coc definitions<CR>
@@ -273,7 +308,6 @@ nmap <silent> gh :call CocAction('doHover')<CR>
 nmap <silent> gf :call CocAction('format')<CR>
  " Need to install pynvim
 " nmap <silent> <leader>s :CocFzfList symbols<CR>
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
 " tmux-navigator
 let g:tmux_navigator_no_mappings = 1
@@ -303,6 +337,7 @@ endfunction
 " copilot
 imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
+let b:copilot_enabled = 1
 inoremap <silent> <c-]> <Plug>(copilot-next)
 inoremap <silent> <c-[> <Plug>(copilot-previous)
 
@@ -397,7 +432,7 @@ require("catppuccin").setup({
             return {
                 NvimTreeNormal = { fg = colors.none },
                 CmpBorder = { fg = "#3e4145" },
-                LineNr = { fg = macchiato.overlay1 },
+                -- LineNr = { fg = macchiato.overlay1 },
             }
         end,
         mocha = function(mocha)
@@ -479,6 +514,8 @@ require('telescope').setup{
     file_ignore_patterns = {
       "node_modules",
       ".git",
+      "vendor",
+      ".sqlx",
     },
     extensions = {
       coc = {
@@ -509,15 +546,15 @@ require('neo-zoom').setup {
   winopts = {
     offset = {
       width = 150,
-      height = 0.85,
+      height = 0.90,
     },
-    border = 'thicc', -- this is a preset, try it :)
+    border = 'thicc',
   },
   presets = {
     {
       filetypes = { 'dapui_.*', 'dap-repl' },
       winopts = {
-        offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
+        offset = { top = 0.01, left = 0.26, width = 0.74, height = 0.25 },
       },
     },
     {
@@ -569,7 +606,138 @@ vim.g.rainbow_delimiters = {
         'RainbowDelimiterRed',
     },
 }
+
+-- true-zen
+require("true-zen").setup {
+  modes = {
+    ataraxis = {
+      options = {
+        number = true,
+        numberwidth = 1,
+      }
+    }
+  }
+}
+
+require('render-markdown').setup({
+    -- Configure whether Markdown should be rendered by default or not
+    start_enabled = true,
+    -- Maximum file size (in MB) that this plugin will attempt to render
+    -- Any file larger than this will effectively be ignored
+    max_file_size = 1.5,
+    -- Capture groups that get pulled from markdown
+    markdown_query = [[
+        (atx_heading [
+            (atx_h1_marker)
+            (atx_h2_marker)
+            (atx_h3_marker)
+            (atx_h4_marker)
+            (atx_h5_marker)
+            (atx_h6_marker)
+        ] @heading)
+
+        (thematic_break) @dash
+
+        (fenced_code_block) @code
+
+        [
+            (list_marker_plus)
+            (list_marker_minus)
+            (list_marker_star)
+        ] @list_marker
+
+        (task_list_marker_unchecked) @checkbox_unchecked
+        (task_list_marker_checked) @checkbox_checked
+
+        (block_quote (block_quote_marker) @quote_marker)
+        (block_quote (paragraph (inline (block_continuation) @quote_marker)))
+
+        (pipe_table) @table
+        (pipe_table_header) @table_head
+        (pipe_table_delimiter_row) @table_delim
+        (pipe_table_row) @table_row
+    ]],
+    -- Capture groups that get pulled from inline markdown
+    inline_query = [[
+        (code_span) @code
+    ]],
+    -- The level of logs to write to file: vim.fn.stdpath('state') .. '/render-markdown.log'
+    -- Only intended to be used for plugin development / debugging
+    log_level = 'error',
+    -- Filetypes this plugin will run on
+    file_types = { 'markdown' },
+    -- Vim modes that will show a rendered view of the markdown file
+    -- All other modes will be uneffected by this plugin
+    render_modes = { 'n', 'c' },
+    -- Characters that will replace the # at the start of headings
+    headings = { '# ', '## ', '### ', '#### ', '##### ', '####### ' },
+    -- Character to use for the horizontal break
+    dash = '—',
+    -- Character to use for the bullet points in lists
+    bullets = { '●', '◉', '✿', '◆', '◇' },
+    checkbox = {
+        -- Character that will replace the [ ] in unchecked checkboxes
+        unchecked = '󰄱 ',
+        -- Character that will replace the [x] in checked checkboxes
+        checked = ' ',
+    },
+    -- Character that will replace the > at the start of block quotes
+    quote = '┃',
+    -- See :h 'conceallevel' for more information about meaning of values
+    conceal = {
+        -- conceallevel used for buffer when not being rendered, get user setting
+        default = vim.opt.conceallevel:get(),
+        -- conceallevel used for buffer when being rendered
+        rendered = 3,
+    },
+    -- Determines how tables are rendered
+    --  full: adds a line above and below tables + normal behavior
+    --  normal: renders the rows of tables
+    --  none: disables rendering, use this if you prefer having cell highlights
+    table_style = 'full',
+    -- Define the highlight groups to use when rendering various components
+    highlights = {
+        heading = {
+            -- Background of heading line
+            backgrounds = { 'DiffAdd', 'DiffChange', 'DiffDelete' },
+            -- Foreground of heading character only
+            foregrounds = {
+                'markdownH1',
+                'markdownH2',
+                'markdownH3',
+                'markdownH4',
+                'markdownH5',
+                'markdownH6',
+            },
+        },
+        -- Horizontal break
+        dash = 'LineNr',
+        -- Code blocks
+        code = 'ColorColumn',
+        -- Bullet points in list
+        bullet = 'Normal',
+        checkbox = {
+            -- Unchecked checkboxes
+            unchecked = '@markup.list.unchecked',
+            -- Checked checkboxes
+            checked = '@markup.heading',
+        },
+        table = {
+            -- Header of a markdown table
+            head = '@markup.heading',
+            -- Non header rows in a markdown table
+            row = 'Normal',
+        },
+        -- LaTeX blocks
+        latex = '@markup.math',
+        -- Quote character in a block quote
+        quote = '@markup.quote',
+    },
+})
 EOF
+
+" codeium
+let g:codeium_enabled = v:false
 
 " coc float scroll
 nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
@@ -629,21 +797,5 @@ set background=dark
 hi Normal guibg=black
 hi LineNr guibg=black
 
-"hi LineNr guifg=#39bae6
-"hi LineNr guifg=#bd93f9
-"hi LineNr guifg=#ffb454
-"hi LineNr guifg=yellow
-
-"hi BlockBg guibg=#282A36
-"hi! link @text.quote.markdown BlockBg
-"hi! link @text.literal.block.markdown BlockBg
-"hi! link @code_fence_content BlockBg
-
-
-" ハイライトグループを定義
-hi MarkdownList1 guifg=#FF0000
-hi MarkdownList2 guifg=#00FF00
-
-" FileType が markdown のときにハイライトを適用
-autocmd FileType markdown syntax match MarkdownList1 /^\s*\-\s\+\S\+/
-autocmd FileType markdown syntax match MarkdownList2 /^\s*\-\s\+\-\s\+\S\+/
+" comp
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
